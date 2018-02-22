@@ -1,0 +1,257 @@
+<html>
+
+    <head>
+
+        <title>
+            CANDiD 2.0
+        </title>
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">    
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>      
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBhcNrSqjHRsC9n9DThcHtHAac8EVmeiew",
+                authDomain: "candid-2-0.firebaseapp.com",
+                databaseURL: "https://candid-2-0.firebaseio.com",
+                projectId: "candid-2-0",
+                storageBucket: "candid-2-0.appspot.com",
+                messagingSenderId: "809387437907"
+            };
+            firebase.initializeApp(config);
+        </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+        
+            .body {
+                font-family: 'Open Sans', sans-serif;
+            }
+
+            .mdl-switch {
+                margin: 6px;
+            }
+
+            .pulse {
+                display: block;
+                width: 52px;
+                height: 52px;
+                line-height: 52px;
+                font-size: 28;
+                border-radius: 50%;
+                background: rgba(244,67,54,0.0);
+                box-shadow: 0 0 0 rgba(244,67,54, 0.6);
+                animation: pulse 2s infinite;
+            }
+
+            @-webkit-keyframes pulse {
+                0% {
+                    -webkit-box-shadow: 0 0 0 0 rgba(244,67,54, 0.6);
+                }
+                70% {
+                    -webkit-box-shadow: 0 0 0 10px rgba(244,67,54, 0);
+                }
+                100% {
+                    -webkit-box-shadow: 0 0 0 0 rgba(244,67,54, 0);
+                }
+            }
+            @keyframes pulse {
+                0% {
+                    -moz-box-shadow: 0 0 0 0 rgba(138, 59, 53, 0.6);
+                    box-shadow: 0 0 0 0 rgba(244,67,54, 0.6);
+                }
+                70% {
+                    -moz-box-shadow: 0 0 0 10px rgba(244,67,54, 0);
+                    box-shadow: 0 0 0 10px rgba(244,67,54, 0);
+                }
+                100% {
+                    -moz-box-shadow: 0 0 0 0 rgba(244,67,54, 0);
+                    box-shadow: 0 0 0 0 rgba(244,67,54, 0);
+                }
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+            <header class="mdl-layout__header">
+
+              <div class="mdl-layout__header-row">
+
+                <span class="mdl-layout-title">CANDiD 2.0</span>
+                <div class="mdl-layout-spacer"></div>
+
+              </div>
+
+            </header>
+
+            <main class="mdl-layout__content" style="padding:4vw;">
+                
+                <div class="mdl-grid">
+                    
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <canvas id="myChart" style="max-width:600px; max-height:360px;"></canvas>
+                    </div>
+                        
+                    <div class="mdl-cell mdl-cell--4-col">
+                        <div style="margin-top:56px;">
+                            <center>Current Heart Rate</center><br>
+                            <center><span id="heart-display" class="pulse">72</span></center>
+                            <center style="margin-top:16px;">BPM</center>
+                        </div>
+                    </div>
+                            
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <ul style="margin-top:72px;">
+                            <li>Breathing Rate : <b>Normal</b></li>
+                            <li>Blood Pressure : <b>Normal</b></li>
+                            <li>Tempreature : <b>Normal</b></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="mdl-grid">
+
+                        <div class="mdl-cell mdl-cell--4-col" style="padding-top:2vw;">
+
+                            <ul>
+                                <li>Patient name : <b>Person1</b><br></li>
+                                <li>Patient age : <b>42 years</b><br></li>
+                                <li>Patient blood group : <b>O+</b><br></li>
+                            </ul>
+
+                        </div>
+
+                        <div class="mdl-cell mdl-cell--3-col" style="padding-top:2vw;">
+
+                            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                                <input type="checkbox" id="switch-1" class="mdl-switch__input" checked>
+                                <span class="mdl-switch__label">Device 1</span>
+                            </label>
+                            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+                                <input type="checkbox" id="switch-2" class="mdl-switch__input" checked>
+                                <span class="mdl-switch__label">Device 2</span>
+                            </label>
+                            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-3">
+                                <input type="checkbox" id="switch-3" class="mdl-switch__input" checked>
+                                <span class="mdl-switch__label">Device 3</span>
+                            </label>
+                            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-4">
+                                <input type="checkbox" id="switch-4" class="mdl-switch__input" checked>
+                                <span class="mdl-switch__label">Device 4</span>
+                            </label>
+
+                        </div>
+
+                        <div class="mdl-cell mdl-cell--4-col">
+                            
+                            <center>
+                                <canvas style="border:1px solid rgba(0, 0, 0, 0.34);" id="canvas" height="160" width="240"></canvas><br>
+                                Heart rate and Breathing rate<br>
+                            </center>
+                        </div>
+
+                    </div>
+
+                    
+                </div>
+                          
+            </main>
+
+        </div>
+
+    </body>
+
+    <script>
+        
+        var ctx = document.getElementById("myChart").getContext('2d');
+        
+        var chart = new Chart(ctx, {
+            type: 'line',
+
+            data: {
+
+                labels: ["-9", "-8", "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0"],
+
+                datasets: [{
+
+                    data: [],
+
+                    label: 'Heart Rate',
+
+                    backgroundColor: [ 'rgba(244, 67, 54, 0)' ],
+
+                    borderColor: [ 'rgba(244,67,54,1)' ],
+                    
+                    borderWidth: 1
+
+                }]
+            },
+
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{   
+                        ticks: {
+                            beginAtZero:false
+                        }
+                    }]
+                }
+            }
+
+            
+
+        });
+
+        function addData(data) {
+            if(chart.data.length >= 10) removeData();
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(data);
+            });
+            chart.update(0);
+        }
+
+        function removeData() {
+            console.log('removecalled');
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.shift();
+            });
+            chart.update(0);
+        }
+
+        firebase.database().ref('/patient1/sensors/heart').on('value',function(snapshot){
+            document.getElementById('heart-display').innerHTML = snapshot.val();
+            addData(parseInt(snapshot.val()));
+            var heartRate = parseInt(snapshot.val());
+            if(heartRate > 100 || heartRate < 60){
+                var data = {
+                    message: 'Patient heart rate critical',
+                    actionText: 'OK'
+                };
+                document.getElementById('demo-snackbar-example').MaterialSnackbar.showSnackbar(data);
+            }
+        })
+
+    </script>
+        
+    <script src="ml.js"></script>
+
+</html>
