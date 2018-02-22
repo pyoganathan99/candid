@@ -218,7 +218,7 @@
         });
 
         function addData(data) {
-            if(chart.data.length >= 10) removeData();
+            if(chart.data.datasets[0].data.length >= 10) removeData();
             chart.data.datasets.forEach((dataset) => {
                 dataset.data.push(data);
             });
