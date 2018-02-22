@@ -193,12 +193,12 @@ function moveMeans() {
 
     for (var mean_index in sums)
     {
-        console.log(counts[mean_index]);
+       // console.log(counts[mean_index]);
         if ( 0 === counts[mean_index] ) 
         {
             sums[mean_index] = means[mean_index];
-            console.log("Mean with no points");
-            console.log(sums[mean_index]);
+           // console.log("Mean with no points");
+           // console.log(sums[mean_index]);
 
             for (var dimension in dataExtremes)
             {

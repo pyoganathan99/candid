@@ -40,9 +40,9 @@
 
             .pulse {
                 display: block;
-                width: 52px;
-                height: 52px;
-                line-height: 52px;
+                width: 64px;
+                height: 64px;
+                line-height: 64px;
                 font-size: 28;
                 border-radius: 50%;
                 background: rgba(244,67,54,0.0);
@@ -131,9 +131,9 @@
                         <div class="mdl-cell mdl-cell--4-col" style="padding-top:2vw;">
 
                             <ul>
-                                <li>Patient name : <b>Person1</b><br></li>
-                                <li>Patient age : <b>42 years</b><br></li>
-                                <li>Patient blood group : <b>O+</b><br></li>
+                                <li>Patient name : <b id='person-name'>--</b><br></li>
+                                <li>Patient age : <b id='person-age'>--</b><br></li>
+                                <li>Patient blood group : <b id='person-group'>--</b><br></li>
                             </ul>
 
                         </div>
@@ -217,6 +217,8 @@
 
         });
 
+        var personid=(new URL(window.location.href)).searchParams.get('q');
+
         function addData(data) {
             if(chart.data.datasets[0].data.length >= 10) removeData();
             chart.data.datasets.forEach((dataset) => {
@@ -226,14 +228,20 @@
         }
 
         function removeData() {
-            console.log('removecalled');
+            //console.log('removecalled');
             chart.data.datasets.forEach((dataset) => {
                 dataset.data.shift();
             });
             chart.update(0);
         }
 
-        firebase.database().ref('/patient1/sensors/heart').on('value',function(snapshot){
+        firebase.database().ref('/' + personid + '/details/').on('value',function(snapshot){
+            document.getElementById('person-name').innerHTML = snapshot.val()['name'];
+            document.getElementById('person-age').innerHTML = snapshot.val()['age'];
+            document.getElementById('person-group').innerHTML = snapshot.val()['blood'];
+        })
+
+        firebase.database().ref('/' + personid + '/sensors/heart').on('value',function(snapshot){
             document.getElementById('heart-display').innerHTML = snapshot.val();
             addData(parseInt(snapshot.val()));
             var heartRate = parseInt(snapshot.val());
@@ -244,7 +252,7 @@
 
             var a = [heartRate,heartRate + (Math.round(Math.random() * 75)) - 37]
             mlAdd(a);
-            console.log(a);
+            //console.log(a);
 
             setup();
 
@@ -256,38 +264,58 @@
                 document.getElementById('demo-snackbar-example').MaterialSnackbar.showSnackbar(data);
                 navigator.vibrate(2000);
             }
-        })
+        });
+
+        firebase.database().ref('/' + personid + '/sensors/dip1').on('value',function(snapshot){
+            if(snapshot.val()=='on'){
+                document.getElementById('blood').innerHTML="Abnormal";
+                navigator.vibrate(200);
+            } else {
+                document.getElementById('blood').innerHTML="Normal";
+            }
+        });
+
+        firebase.database().ref('/' + personid + '/sensors/dip2').on('value',function(snapshot){
+            if(snapshot.val()=='on'){
+                document.getElementById('temp').innerHTML="Abnormal";
+                navigator.vibrate(200);
+            } else {
+                document.getElementById('temp').innerHTML="Normal";
+            }
+        });
+
+        
 
         function motorBtn(){
             if(!document.getElementById('switch-1').parentElement.classList.contains('is-checked'))
             {
-                firebase.database().ref('/patient1/devices/motor/').set("on");
+                firebase.database().ref('/' + personid + '/devices/motor/').set("on");
             }
             else
             {
-                firebase.database().ref('/patient1/devices/motor/').set("off");
+                firebase.database().ref('/' + personid + '/devices/motor/').set("off");
             }
         }
 
         function led1Btn(){
             if(!document.getElementById('switch-2').parentElement.classList.contains('is-checked'))
             {
-                firebase.database().ref('/patient1/devices/led1/').set("on");
+                firebase.database().ref('/' + personid + '/devices/led1/').set("on");
             }
             else
             {
-                firebase.database().ref('/patient1/devices/led1/').set("off");
+                firebase.database().ref('/' + personid + '/devices/led1/').set("off");
             }
         }
 
         function led2Btn(){
             if(!document.getElementById('switch-3').parentElement.classList.contains('is-checked'))
             {
-                firebase.database().ref('/patient1/devices/led2/').set("on");
+                firebase.database().ref('/' + personid + '/devices/led2/').set("on");
             }
             else
             {
-                firebase.database().ref('/patient1/devices/led2/').set("off");
+                firebase.database().ref('/' + personid + '/devices/led2/').set("off");
             }
         }
 
