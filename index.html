@@ -128,7 +128,7 @@
 
                     <div class="mdl-grid">
 
-                        <div class="mdl-cell mdl-cell--4-col" style="padding-top:2vw;">
+                        <div class="mdl-cell mdl-cell--3-col" style="padding-top:2vw;">
 
                             <ul>
                                 <li>Patient name : <b id='person-name'>--</b><br></li>
@@ -138,7 +138,7 @@
 
                         </div>
 
-                        <div class="mdl-cell mdl-cell--3-col" style="padding-top:2vw;">
+                        <div class="mdl-cell mdl-cell--2-col" style="padding-top:2vw;">
 
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
                                 <input type="checkbox" id="switch-1" class="mdl-switch__input" onclick="motorBtn();">
@@ -155,13 +155,21 @@
 
                         </div>
 
-                        <div class="mdl-cell mdl-cell--4-col">
+                        <div class="mdl-cell mdl-cell--3-col" style="margin-left:42px">
                             
                             <center>
                                 <canvas style="border:1px solid rgba(0, 0, 0, 0.34);" id="canvas" height="200" width="300"></canvas><br>
                                 Heart rate and Breathing rate<br>
                             </center>
                         </div>
+
+                        <div class="mdl-cell mdl-cell--3-col"  style="margin-left:64px">
+                            
+                                <center>
+                                    <canvas style="border:1px solid rgba(0, 0, 0, 0.34);" id="regression" height="200" width="300"></canvas><br>
+                                    Cholestrol - Regression<br>
+                                </center>
+                            </div>
 
                     </div>
 
@@ -197,8 +205,20 @@
                     
                     borderWidth: 1
 
-                }]
-            },
+                },{
+
+                    data: [],
+
+                    label: 'Breathing Rate',
+
+                    backgroundColor: [ 'rgba(244, 67, 54, 0)' ],
+
+                    borderColor: [ 'rgba(244,67,54,1)' ],
+
+                    borderWidth: 1
+
+                    }]
+                },
 
             options: {
                 legend: {
@@ -221,19 +241,28 @@
 
         function addData(data) {
             if(chart.data.datasets[0].data.length >= 10) removeData();
-            chart.data.datasets.forEach((dataset) => {
-                dataset.data.push(data);
-            });
+            chart.data.datasets[0].data.push(data);
             chart.update(0);
         }
 
         function removeData() {
             //console.log('removecalled');
-            chart.data.datasets.forEach((dataset) => {
-                dataset.data.shift();
-            });
+            chart.data.datasets[0].data.shift();
             chart.update(0);
         }
+
+        function addData1(data) {
+            if(chart.data.datasets[1].data.length >= 10) removeData1();
+            chart.data.datasets[1].data.push(data);
+            chart.update(0);
+        }
+
+        function removeData1() {
+            //console.log('removecalled');
+            chart.data.datasets[1].data.shift();
+            chart.update(0);
+        }
+
 
         firebase.database().ref('/' + personid + '/details/').on('value',function(snapshot){
             document.getElementById('person-name').innerHTML = snapshot.val()['name'];
@@ -245,8 +274,8 @@
             document.getElementById('heart-display').innerHTML = snapshot.val();
             addData(parseInt(snapshot.val()));
             var heartRate = parseInt(snapshot.val());
-            document.getElementById('breathing').innerHTML = Math.round(heartRate/4) + ' /min';
-            document.getElementById('breathing').innerHTML += (heartRate/4 < 12 || heartRate/4 >20)?' (Abnormal)':' (Normal)';
+            //document.getElementById('breathing').innerHTML = Math.round(heartRate/4) + ' /min';
+            //document.getElementById('breathing').innerHTML += (heartRate/4 < 12 || heartRate/4 >20)?' (Abnormal)':' (Normal)';
 
             //data.push([heartRate,heartRate]);
 
@@ -266,6 +295,32 @@
             }
         });
 
+        firebase.database().ref('/' + personid + '/sensors/breath').on('value',function(snapshot){
+            document.getElementById('breathing').innerHTML = snapshot.val();
+            addData1(parseInt(snapshot.val()));
+            var breathRate = parseInt(snapshot.val());
+            //document.getElementById('breathing').innerHTML = Math.round(heartRate/4) + ' /min';
+            //document.getElementById('breathing').innerHTML += (heartRate/4 < 12 || heartRate/4 >20)?' (Abnormal)':' (Normal)';
+
+            //data.push([heartRate,heartRate]);
+
+            //var a = [heartRate,heartRate + (Math.round(Math.random() * 75)) - 37]
+            //mlAdd(a);
+            //console.log(a);
+
+            //setup();
+
+            if(breathRate > 100 || breathRate < 60){
+                var data = {
+                    message: 'Patient breath rate critical',
+                    actionText: 'OK'
+                };
+                document.getElementById('demo-snackbar-example').MaterialSnackbar.showSnackbar(data);
+                navigator.vibrate(2000);
+            }
+        });
+
+
         firebase.database().ref('/' + personid + '/sensors/dip1').on('value',function(snapshot){
             if(snapshot.val()=='on'){
                 document.getElementById('blood').innerHTML="Abnormal";
@@ -284,7 +339,19 @@
             }
         });
 
-        
+        firebase.database().ref('/' + personid + '/cholesterol/').once('value').then(function(snapshot){
+            yogi=[];
+            for(var i in snapshot.val())
+            {
+                console.log(i,snapshot.val()[i]);
+                if((snapshot.val()).hasOwnProperty(i))
+                    yogi.push(snapshot.val()[i]);   
+            }  
+            console.log('processed');  
+            console.log(yogi);
+            process();
+            regSetup();
+        });
 
         function motorBtn(){
             if(!document.getElementById('switch-1').parentElement.classList.contains('is-checked'))
@@ -322,5 +389,6 @@
     </script>
         
     <script src="ml.js"></script>
+    <script src="regression.js"></script>
 
 </html>
