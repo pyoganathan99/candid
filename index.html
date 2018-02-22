@@ -116,9 +116,9 @@
                             
                     <div class="mdl-cell mdl-cell--3-col">
                         <ul style="margin-top:72px;">
-                            <li>Breathing Rate : <b>Normal</b></li>
-                            <li>Blood Pressure : <b>Normal</b></li>
-                            <li>Tempreature : <b>Normal</b></li>
+                            <li>Breathing Rate : <b id='breathing'>--</b></li>
+                            <li>Blood Pressure : <b id='blood'>Normal</b></li>
+                            <li>Tempreature : <b id='temp'>Normal</b></li>
                         </ul>
                     </div>
 
@@ -158,7 +158,7 @@
                         <div class="mdl-cell mdl-cell--4-col">
                             
                             <center>
-                                <canvas style="border:1px solid rgba(0, 0, 0, 0.34);" id="canvas" height="160" width="240"></canvas><br>
+                                <canvas style="border:1px solid rgba(0, 0, 0, 0.34);" id="canvas" height="200" width="300"></canvas><br>
                                 Heart rate and Breathing rate<br>
                             </center>
                         </div>
@@ -237,6 +237,17 @@
             document.getElementById('heart-display').innerHTML = snapshot.val();
             addData(parseInt(snapshot.val()));
             var heartRate = parseInt(snapshot.val());
+            document.getElementById('breathing').innerHTML = Math.round(heartRate/4) + ' /min';
+            document.getElementById('breathing').innerHTML += (heartRate/4 < 12 || heartRate/4 >20)?' (Abnormal)':' (Normal)';
+
+            //data.push([heartRate,heartRate]);
+
+            var a = [heartRate,heartRate + (Math.round(Math.random() * 75)) - 37]
+            mlAdd(a);
+            console.log(a);
+
+            setup();
+
             if(heartRate > 100 || heartRate < 60){
                 var data = {
                     message: 'Patient heart rate critical',
