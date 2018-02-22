@@ -145,11 +145,11 @@
                                 <span class="mdl-switch__label">Motor</span>
                             </label>
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
-                                <input type="checkbox" id="switch-2" class="mdl-switch__input">
+                                <input type="checkbox" id="switch-2" class="mdl-switch__input" onclick="led1Btn();">
                                 <span class="mdl-switch__label">LED1</span>
                             </label>
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-3">
-                                <input type="checkbox" id="switch-3" class="mdl-switch__input">
+                                <input type="checkbox" id="switch-3" class="mdl-switch__input" onclick="led2Btn();">
                                 <span class="mdl-switch__label">LED2</span>
                             </label>
 
@@ -255,6 +255,28 @@
             else
             {
                 firebase.database().ref('/patient1/devices/motor/').set("off");
+            }
+        }
+
+        function led1Btn(){
+            if(!document.getElementById('switch-2').parentElement.classList.contains('is-checked'))
+            {
+                firebase.database().ref('/patient1/devices/led1/').set("on");
+            }
+            else
+            {
+                firebase.database().ref('/patient1/devices/led1/').set("off");
+            }
+        }
+
+        function led2Btn(){
+            if(!document.getElementById('switch-3').parentElement.classList.contains('is-checked'))
+            {
+                firebase.database().ref('/patient1/devices/led2/').set("on");
+            }
+            else
+            {
+                firebase.database().ref('/patient1/devices/led2/').set("off");
             }
         }
 
