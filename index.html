@@ -109,7 +109,7 @@
                     <div class="mdl-cell mdl-cell--4-col">
                         <div style="margin-top:56px;">
                             <center>Current Heart Rate</center><br>
-                            <center><span id="heart-display" class="pulse">72</span></center>
+                            <center><span id="heart-display" class="pulse">--</span></center>
                             <center style="margin-top:16px;">BPM</center>
                         </div>
                     </div>
@@ -141,20 +141,16 @@
                         <div class="mdl-cell mdl-cell--3-col" style="padding-top:2vw;">
 
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
-                                <input type="checkbox" id="switch-1" class="mdl-switch__input" checked>
-                                <span class="mdl-switch__label">Device 1</span>
+                                <input type="checkbox" id="switch-1" class="mdl-switch__input" onclick="motorBtn();">
+                                <span class="mdl-switch__label">Motor</span>
                             </label>
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
-                                <input type="checkbox" id="switch-2" class="mdl-switch__input" checked>
-                                <span class="mdl-switch__label">Device 2</span>
+                                <input type="checkbox" id="switch-2" class="mdl-switch__input">
+                                <span class="mdl-switch__label">LED1</span>
                             </label>
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-3">
-                                <input type="checkbox" id="switch-3" class="mdl-switch__input" checked>
-                                <span class="mdl-switch__label">Device 3</span>
-                            </label>
-                            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-4">
-                                <input type="checkbox" id="switch-4" class="mdl-switch__input" checked>
-                                <span class="mdl-switch__label">Device 4</span>
+                                <input type="checkbox" id="switch-3" class="mdl-switch__input">
+                                <span class="mdl-switch__label">LED2</span>
                             </label>
 
                         </div>
@@ -250,6 +246,8 @@
                 navigator.vibrate(2000);
             }
         })
+
+        motorBtn
 
     </script>
         
