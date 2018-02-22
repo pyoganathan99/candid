@@ -247,7 +247,16 @@
             }
         })
 
-        motorBtn
+        function motorBtn(){
+            if(!document.getElementById('switch-1').parentElement.classList.contains('is-checked'))
+            {
+                firebase.database().ref('/patient1/devices/motor/').set("on");
+            }
+            else
+            {
+                firebase.database().ref('/patient1/devices/motor/').set("off");
+            }
+        }
 
     </script>
         
