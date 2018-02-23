@@ -201,7 +201,7 @@
 
                     backgroundColor: [ 'rgba(244, 67, 54, 0)' ],
 
-                    borderColor: [ 'rgba(244,67,54,1)','rgba(33,150,243,1)' ],
+                    borderColor: [ 'rgba(244,67,54,1)','rgba(33,150,243,1)'  ],
                     
                     borderWidth: 1
 
@@ -324,6 +324,11 @@
         firebase.database().ref('/' + personid + '/sensors/dip1').on('value',function(snapshot){
             if(snapshot.val()=='on'){
                 document.getElementById('blood').innerHTML="Abnormal";
+                var data = {
+                    message: 'Patient blood pressure critical',
+                    actionText: 'OK'
+                };
+                document.getElementById('demo-snackbar-example').MaterialSnackbar.showSnackbar(data);
                 navigator.vibrate(200);
             } else {
                 document.getElementById('blood').innerHTML="Normal";
@@ -333,6 +338,11 @@
         firebase.database().ref('/' + personid + '/sensors/dip2').on('value',function(snapshot){
             if(snapshot.val()=='on'){
                 document.getElementById('temp').innerHTML="Abnormal";
+                var data = {
+                    message: 'Patient temperature critical',
+                    actionText: 'OK'
+                };
+                document.getElementById('demo-snackbar-example').MaterialSnackbar.showSnackbar(data);
                 navigator.vibrate(200);
             } else {
                 document.getElementById('temp').innerHTML="Normal";
