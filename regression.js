@@ -126,6 +126,31 @@ function regDraw() {
         ctx1.restore();
     }
 
+    var point = regData[0];
+
+    var x = (point[0] - dataExtremes1[0].min + 1) * (width / (dataRange1[0] + 2) );
+    var y = (point[1] - dataExtremes1[1].min + 1) * (height / (dataRange1[1] + 2) );
+
+    ctx1.beginPath();
+    ctx1.strokeStyle = '#bbbbbb'
+    ctx1.moveTo(x,y);
+
+    point = regData[ regData.length - 1 ];
+
+    x = (point[0] - dataExtremes1[0].min + 1) * (width / (dataRange1[0] + 2) );
+    y = (point[1] - dataExtremes1[1].min + 1) * (height / (dataRange1[1] + 2) );
+
+    ctx1.lineTo(x,y);
+    ctx1.stroke();
+
+    ctx1.beginPath();
+    ctx1.setLineDash([6,4]);
+    ctx1.moveTo(0,140);
+    ctx1.lineTo(300,140);
+    ctx1.stroke();
+
+    ctx1.moveTo(5,160);     
+
 }
 
 regInit();  
