@@ -6,6 +6,14 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">    
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>      
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+        
+        <style>
+            .card{
+                padding:24px;
+                box-shadow: 1px 1px 1px 1px #dddddd;
+                width: wrap-content;
+            }
+        </style>
     </head>
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -21,19 +29,46 @@
 
             </header>
 
-            <main class="mdl-layout__content" style="padding:4vw;">
+            <main class="mdl-layout__content" id="content" style="padding:4vw;">
 
-                <form action="index.html" method="GET">
+<!--                 <form action="index.html" method="GET">
 
                     <div class="mdl-textfield mdl-js-textfield">
                         <input class="mdl-textfield__input" name='q' type="text" id="sample1">
                         <label class="mdl-textfield__label" for="sample1">Enter person id</label>
                     </div>
 
-                </form>
+                </form> -->
+                
+                
 
             </main>
 
         </div>
+        <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBhcNrSqjHRsC9n9DThcHtHAac8EVmeiew",
+    authDomain: "candid-2-0.firebaseapp.com",
+    databaseURL: "https://candid-2-0.firebaseio.com",
+    projectId: "candid-2-0",
+    storageBucket: "candid-2-0.appspot.com",
+    messagingSenderId: "809387437907"
+  };
+  firebase.initializeApp(config);
+    
+    firebase.database().ref('/').once('value',function(snapshot){
+        for(var a in snapshot.val()){
+            if(snapshot.val().hasOwnProperty(a)){
+                document.getElementById('content').innerHTML+=cardbuilder(a,snapshot.val()[a].details.name);
+            }
+        }
+        );
+    
+    function cardbuilder(id, name){
+        return "<div onclick=\"window.location.href='index.html?q="+id+"'\">"+id+"&nbsp&nbsp<b>"+name+"</b>&nbsp&nbspNormal</div>"
+    }
+</script>
     </body>
 </html>
