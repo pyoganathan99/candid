@@ -64,7 +64,7 @@
                 document.getElementById('content').innerHTML+=cardbuilder(a,snapshot.val()[a].details.name);
             }
         }
-        );
+    });
     
     function cardbuilder(id, name){
         return "<div onclick=\"window.location.href='index.html?q="+id+"'\">"+id+"&nbsp&nbsp<b>"+name+"</b>&nbsp&nbspNormal</div>"
