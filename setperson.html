@@ -31,7 +31,7 @@
             </header>
 
             <main class="mdl-layout__content" id="content" style="padding:4vw;">
-
+<div class="mdl-spinner mdl-js-spinner is-active"></div>
 <!--                 <form action="index.html" method="GET">
 
                     <div class="mdl-textfield mdl-js-textfield">
@@ -60,6 +60,7 @@
   firebase.initializeApp(config);
     
     firebase.database().ref('/').once('value',function(snapshot){
+        document.getElementById('content').innerHTML="";
         for(var a in snapshot.val()){
             if(snapshot.val().hasOwnProperty(a)){
                 document.getElementById('content').innerHTML+=cardbuilder(a,snapshot.val()[a].details.name);
