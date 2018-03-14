@@ -35,7 +35,7 @@
     </div>
     <script type="text/javascript" src="https://github.com/schmich/instascan/releases/download/1.0.0/instascan.min.js"></script>
     <script>
-        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror:false });
       scanner.addListener('scan', function (content) {
         window.location.href="index.html?q="+content;
       });
