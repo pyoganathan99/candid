@@ -60,7 +60,7 @@
         firebase.database().ref('/').once('value', function (snapshot) {
             document.getElementById('content').innerHTML = "";
             for (var a in snapshot.val()) {
-                if (snapshot.val().hasOwnProperty(a)) {
+                if (snapshot.val().hasOwnProperty(a) && a!='beds') {
                     document.getElementById('content').innerHTML += cardbuilder(a, snapshot.val()[a].details.name);
                 }
             }
