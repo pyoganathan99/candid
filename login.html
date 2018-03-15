@@ -150,11 +150,11 @@
         firebase.auth().onAuthStateChanged(function(user){
             console.log('Logged in');
             if(user){
-                if(user.photoURL=="admin"){
-                    window.location.href="display.html";
-                } else {
+                //if(user.photoURL=="admin"){
+                    //window.location.href="display.html";
+                //} else {
                     window.location.href="setperson.html";
-                }
+                //}
             }
         });
 
