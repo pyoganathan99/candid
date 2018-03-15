@@ -33,6 +33,8 @@
         </main>
 
     </div>
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/instascan@1.0.0/index.min.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -44,9 +46,7 @@
             messagingSenderId: "809387437907"
         };
         firebase.initializeApp(config);
-    </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/instascan@1.0.0/index.min.js"></script>
-    <script>
+        
         var beds;
 
         firebase.database().ref('/beds/').once('value',function(snapshot){
@@ -69,7 +69,6 @@
 
 
     </script>
-    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
 </body>
 
 </html>
