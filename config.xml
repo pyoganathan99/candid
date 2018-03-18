@@ -1,6 +1,6 @@
 <widget id="inc.yottabytes.first">
 <plugin name="cordova-plugin-headercolor" />
 <plugin name="cordova-plugin-statusbar" />
-<preference name="HeaderColor" value="#673AB7" />
-<preference name="StatusBarBackgroundColor" value="#512DA8" />
+<preference name="HeaderColor" value="#3F51B5" />
+<preference name="StatusBarBackgroundColor" value="#303F9F" />
 </widget>
