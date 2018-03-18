@@ -1,2 +1,4 @@
+<widget id="inc.yottabytes.first">
 <plugin name="cordova-plugin-headercolor" />
 <preference name="HeaderColor" value="#becb29" />
+</widget>
