@@ -1,6 +1,7 @@
 <widget id="inc.yottabytes.first">
 <plugin name="cordova-plugin-headercolor" />
 <plugin name="cordova-plugin-statusbar" />
+<plugin name="cordova-plugin-googleplayservices" />
 <plugin name="cordova-plugin-android-place-picker" spec="https://github.com/sebastien-roch/cordova-plugin-android-place-picker.git" />
 <preference name="HeaderColor" value="#3F51B5" />
 <preference name="StatusBarBackgroundColor" value="#303F9F" />
