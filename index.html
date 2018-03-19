@@ -183,6 +183,17 @@
     <script type="text/javascript" src="android-place-picker.js"></script>
 
 <script>
+    try{
+            AndroidPlacePicker.pickPlace(function(obj){
+                console.log('success');
+                //alert(obj)
+            }, function(obj){
+                //alert(obj)
+                console.log('error');
+            });
+        } catch(err){
+            console.log(err);
+        }
             var ctx = document.getElementById("myChart").getContext('2d');
 
             var chart = new Chart(ctx, {
