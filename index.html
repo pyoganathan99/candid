@@ -177,11 +177,23 @@
 
     </div>
 
-</body>
+</body> 
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="android-place-picker.js"></script>
 
 <script>
-    AndroidPlacePicker.pickPlace(onSuccess, onError);
-    
+    try{
+            AndroidPlacePicker.pickPlace(function(obj){
+                alert('success');
+                //alert(obj)
+            }, function(obj){
+                //alert(obj)
+                alert('error');
+            });
+        } catch(err){
+            alert(err);
+        }
+ 
             var ctx = document.getElementById("myChart").getContext('2d');
 
             var chart = new Chart(ctx, {
