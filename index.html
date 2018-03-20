@@ -185,14 +185,14 @@
 <script>
     try{
             AndroidPlacePicker.pickPlace(function(obj){
-                console.log('success');
+                alert('success');
                 //alert(obj)
             }, function(obj){
                 //alert(obj)
-                console.log('error');
+                alert('error');
             });
         } catch(err){
-            console.log(err);
+            alert(err);
         }
             var ctx = document.getElementById("myChart").getContext('2d');
 
