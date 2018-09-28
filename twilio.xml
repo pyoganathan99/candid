@@ -1,0 +1,6 @@
+<Response>
+<Say voice="alice">Thanks for trying our documentation. Enjoy!</Say>
+<Gather input="speech" timeout="3" numDigits="1" language="ta-IN">
+        <Say>Please press 1 or say sales for sales.</Say>
+    </Gather>
+</Response>
